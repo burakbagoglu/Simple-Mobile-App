@@ -6,12 +6,8 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
-import sqlite3 as sql
 import hashlib
 
-vt = sql.connect("db.sql")
-im = vt.cursor()
-im.execute("CREATE TABLE IF NOT EXISTS users ('username','password')")
 
 def Sifreleme(sifre):
     sha256 = hashlib.sha256()
