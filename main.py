@@ -8,6 +8,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from noname import *
 import sqlite3
+from kivy.config import Config
 
 vt = sqlite3.connect("database.sql")
 im = vt.cursor()
@@ -153,7 +154,8 @@ class MyApp(App):
         # Ekran boyutunu belirleme
         Window.clearcolor = (255, 255, 255, 1)
         Window.size = (412, 600)
-
+        
+        Config.set('kivy', 'window_icon', 'logo.png')
        
         screen_manager = ScreenManager()
 
