@@ -6,14 +6,10 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
-import hashlib
 
 
-def Sifreleme(sifre):
-    sha256 = hashlib.sha256()
-    sha256.update(sifre.encode('utf-8'))
-    hashed_password = sha256.hexdigest()
-    return hashed_password
+
+
 
 class Giris(Screen):
     def __init__(self, **kwargs):
