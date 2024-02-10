@@ -6,9 +6,15 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
-from noname import *
 import sqlite3
 from kivy.config import Config
+import hashlib
+
+def sifrele(metin):
+    # Metni SHA-256 algoritması kullanarak özetle
+    sha256_hash = hashlib.sha256(metin.encode()).hexdigest()
+    return sha256_hash
+
 
 vt = sqlite3.connect("database.sql")
 im = vt.cursor()
