@@ -26,18 +26,18 @@ class Giris(Screen):
         layout = FloatLayout()
         main_frame = Image(source='img/main_frame.png', allow_stretch=True, keep_ratio=False, pos=(0, 0)) 
 
-        label = Label(text='HOŞ GELDİNİZ!', font_size=40, pos=(0, 120),font_name='LEMONMILK-Regular.otf')
+        label = Label(text='HOŞ GELDİN!', font_size=40, pos=(0, 120),font_name='LEMONMILK-Regular.otf')
         label.color = (0,0,0,1)
         
         logo = Image(source="img/logo.png",pos=(0,270))
-        username_input = TextInput(hint_text='Kullanıcı adı',
+        self.username_input = TextInput(hint_text='Kullanıcı adı',
                                    multiline=False,
                                    size_hint=(None, None),
                                    size=(200, 40),
                                    pos=(150, 400),
                                    background_color=(255,255,255,1))
 
-        password_input = TextInput(hint_text='Şifre',
+        self.password_input = TextInput(hint_text='Şifre',
                                    multiline=False,
                                    size_hint=(None, None),
                                    size=(200, 40),
@@ -51,7 +51,8 @@ class Giris(Screen):
                         size=(200, 50),
                         pos=(150,300),
                         background_color=(255,255,255,1),
-                        border=(0, 0, 0, 4)
+                        border=(0, 0, 0, 4),
+                        on_press=self.GirisFonksiyon
                         )
         
         button.color = (0,0,0,1)
@@ -63,8 +64,8 @@ class Giris(Screen):
         label_hesabin_yokmu.color = (0,0,0,1)
         
         layout.add_widget(main_frame)
-        layout.add_widget(username_input)
-        layout.add_widget(password_input)
+        layout.add_widget(self.username_input)
+        layout.add_widget(self.password_input)
         layout.add_widget(label)
         layout.add_widget(button)
         layout.add_widget(logo)
@@ -75,13 +76,30 @@ class Giris(Screen):
         self.manager.transition = SlideTransition(direction='left')
         self.manager.current = 'kayit'
 
+    def GirisFonksiyon(self,instance):
+        username_value = self.username_input.text
+        password_value = self.password_input.text
+        true = False
+        im.execute("SELECT COUNT(*) FROM users")
+        SUTUNSAYISI = im.fetchone()[0]
+        im.execute("SELECT username FROM users")
+        for i in range(SUTUNSAYISI):
+            veri = im.fetchone()[0]
+            if username_value == veri:
+                true = True
+        if true == True:
+            im.execute("SELECT password FROM users WHERE username = ?",(username_value,))
+            passwddb = im.fetchone()[0]
+            if sifrele(password_value) == passwddb:
+                self.manager.transition = SlideTransition(direction='left')
+                self.manager.current = 'mainpage'
 class Kayit(Screen):
     def __init__(self, **kwargs):
         super(Kayit, self).__init__(**kwargs)
         layout = FloatLayout()
         main_frame = Image(source='img/main_frame.png', allow_stretch=True, keep_ratio=False, pos=(0, 0)) 
 
-        label = Label(text='HOŞ GELDİNİZ!', font_size=40, pos=(0, 120),font_name='LEMONMILK-Regular.otf')
+        label = Label(text='HOŞ GELDİN!', font_size=40, pos=(0, 120),font_name='LEMONMILK-Regular.otf')
         label.color = (0,0,0,1)
         
         logo = Image(source="img/logo.png",pos=(0,270))
@@ -128,7 +146,6 @@ class Kayit(Screen):
         self.add_widget(layout)
 
     def Kayit(self,instance):
-        print(23)
         username_value = self.username_input.text
         password_value = self.password_input.text
         im.execute("SELECT COUNT(*) FROM users")
@@ -154,7 +171,11 @@ class Kayit(Screen):
         self.manager.transition = SlideTransition(direction='right')
         self.manager.current = 'giris'
     
-    
+class MainPage(Screen):
+    def __init__(self, **kwargs):
+        super(MainPage, self).__init__(**kwargs)
+        #TODO ANA İÇERİK
+
 class MyApp(App):
     def build(self):
         # Ekran boyutunu belirleme
@@ -172,6 +193,8 @@ class MyApp(App):
         second_screen = Kayit(name='kayit')
         screen_manager.add_widget(second_screen)
 
+        main_page = MainPage(name="mainpage")
+        screen_manager.add_widget(main_page)
         return screen_manager
 if __name__ == '__main__':
     MyApp().run()
