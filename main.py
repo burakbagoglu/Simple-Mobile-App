@@ -24,12 +24,12 @@ class Giris(Screen):
     def __init__(self, **kwargs):
         super(Giris, self).__init__(**kwargs)
         layout = FloatLayout()
-        main_frame = Image(source='img/main_frame.png', allow_stretch=True, keep_ratio=False, pos=(0, 0)) 
+        main_frame = Image(source='assets/main_frame.png', allow_stretch=True, keep_ratio=False, pos=(0, 0)) 
 
         label = Label(text='HOŞ GELDİN!', font_size=40, pos=(0, 120),font_name='LEMONMILK-Regular.otf')
         label.color = (0,0,0,1)
         
-        logo = Image(source="img/logo.png",pos=(0,270))
+        logo = Image(source="assets/logo.png",pos=(0,270))
         self.username_input = TextInput(hint_text='Kullanıcı adı',
                                    multiline=False,
                                    size_hint=(None, None),
@@ -97,12 +97,12 @@ class Kayit(Screen):
     def __init__(self, **kwargs):
         super(Kayit, self).__init__(**kwargs)
         layout = FloatLayout()
-        main_frame = Image(source='img/main_frame.png', allow_stretch=True, keep_ratio=False, pos=(0, 0)) 
+        main_frame = Image(source='assets/main_frame.png', allow_stretch=True, keep_ratio=False, pos=(0, 0)) 
 
         label = Label(text='HOŞ GELDİN!', font_size=40, pos=(0, 120),font_name='LEMONMILK-Regular.otf')
         label.color = (0,0,0,1)
         
-        logo = Image(source="img/logo.png",pos=(0,270))
+        logo = Image(source="assets/logo.png",pos=(0,270))
         self.username_input = TextInput(hint_text='Kullanıcı adı',
                                    multiline=False,
                                    size_hint=(None, None),
